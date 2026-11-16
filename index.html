@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منصة المراجعة الذكية | الإيمان باليوم الآخر</title>
+<style>
+:root{--bg:#f4f7f5;--card:#fff;--ink:#172b25;--muted:#63756d;--green:#176b50;--green2:#e5f3ec;--gold:#d9a441;--red:#b84242;--redbg:#fff0ef;--line:#dce7e1;--shadow:0 12px 35px rgba(24,62,47,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.8}
+header{background:linear-gradient(135deg,#103f32,#1b7254);color:#fff;padding:34px 18px 42px;text-align:center}
+header .tag{display:inline-block;border:1px solid #ffffff55;border-radius:99px;padding:3px 13px;font-size:13px}
+header h1{font-size:clamp(25px,5vw,38px);margin:12px 0 4px}header p{margin:0;color:#e0eee8}
+.wrap{max-width:980px;margin:-20px auto 50px;padding:0 15px}
+.panel,.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px;margin-bottom:17px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#f5faf7;border-radius:13px;padding:12px;text-align:center}.stat b{display:block;font-size:24px;color:var(--green)}.stat span{font-size:12px;color:var(--muted)}
+.progress{height:10px;background:#e8efeb;border-radius:20px;overflow:hidden;margin:13px 0}.progress>div{height:100%;width:0;background:linear-gradient(90deg,#1b7254,#d9a441);transition:.3s}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.small{font-size:13px;color:var(--muted)}
+button{font:inherit;cursor:pointer;border:0;border-radius:11px;padding:10px 17px;background:var(--green);color:#fff;font-weight:bold;transition:.15s}button:hover{filter:brightness(1.08);transform:translateY(-1px)}button.secondary{background:#eaf2ee;color:var(--green)}button.gold{background:#d9a441;color:#33240a}button:disabled{opacity:.45;cursor:not-allowed;transform:none}
+h2{font-size:21px;margin:0 0 10px}h3{font-size:17px;margin:0 0 8px}
+#startScreen{text-align:center}#startScreen p{color:var(--muted)}.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:17px 0}.chip{background:var(--green2);color:var(--green);padding:5px 11px;border-radius:99px;font-size:13px}
+#quizScreen{display:none}.qmeta{display:flex;justify-content:space-between;gap:8px;align-items:center;color:var(--muted);font-size:13px;margin-bottom:10px}.topic{background:#edf5f0;color:var(--green);padding:3px 10px;border-radius:99px}
+.question{font-size:20px;font-weight:bold;margin:12px 0 17px}
+.options{display:grid;gap:10px}.option{display:flex;align-items:center;gap:10px;text-align:right;width:100%;background:#fff;color:var(--ink);border:1px solid var(--line);font-weight:normal;padding:12px 14px}.option .letter{width:29px;height:29px;display:grid;place-items:center;border-radius:8px;background:#edf3ef;color:var(--green);font-weight:bold;flex:none}.option.selected{border-color:var(--green);background:#f0f8f3}.option.correct{border-color:#29966b;background:#e8f7ef}.option.wrong{border-color:var(--red);background:var(--redbg)}.option:disabled{opacity:1;cursor:default;transform:none}
+input[type=text]{width:100%;border:1px solid var(--line);border-radius:10px;padding:13px;font:inherit;direction:rtl}
+.feedback{margin-top:15px;padding:13px;border-radius:12px;display:none}.feedback.good{display:block;background:#e8f7ef;color:#155d42}.feedback.bad{display:block;background:var(--redbg);color:#8c3030}
+.actions{display:flex;gap:9px;justify-content:space-between;flex-wrap:wrap;margin-top:20px}
+#resultScreen{display:none}.resultHero{text-align:center;padding:15px}.score{font-size:48px;font-weight:bold;color:var(--green);line-height:1.3}.reportGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.report{border:1px solid var(--line);border-radius:14px;padding:15px}.report.weak{background:#fff7f5;border-color:#f0d4cf}.report.strong{background:#f1faf5;border-color:#cde8d8}.report h3{display:flex;justify-content:space-between;gap:8px}.meter{height:8px;background:#e8efeb;border-radius:20px;overflow:hidden;margin:8px 0}.meter div{height:100%;background:var(--green)}.report.weak .meter div{background:#c65b50}.badge{font-size:12px;padding:2px 8px;border-radius:99px;background:#e8f7ef;color:#176b50;white-space:nowrap}.weak .badge{background:#ffe5e1;color:#a33d35}
+.list{margin:8px 0 0;padding-right:20px}.list li{margin:5px 0}.note{background:#fff8e9;border:1px solid #f0dfb9;border-radius:12px;padding:13px;color:#6d531d;font-size:14px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:10px}
+@media(max-width:620px){.stats{grid-template-columns:repeat(3,1fr)}.panel,.card{padding:16px}.reportGrid{grid-template-columns:1fr}.question{font-size:18px}}
+</style>
+</head>
+<body>
+<header>
+  <span class="tag">منصة المراجعة الذكية</span>
+  <h1>الإيمان باليوم الآخر</h1>
+  <p>اختبر فهمك، صحّح أخطاءك، واكتشف ما تحتاج إلى إعادة حفظه</p>
+</header>
+<main class="wrap">
+<section class="panel" id="startScreen">
+  <h2>مرحبًا بك في رحلة المراجعة 🌿</h2>
+  <p>أجب عن الأسئلة بهدوء. ستُسجَّل الأخطاء حسب عنوان الدرس، وفي النهاية ستحصل على تقرير يحدد ما أتقنته وما يحتاج إلى مراجعة.</p>
+  <div class="chips">
+    <span class="chip">اختيار من متعدد</span><span class="chip">صح أو خطأ</span><span class="chip">إكمال</span><span class="chip">ترتيب المراحل</span><span class="chip">تصحيح فوري</span>
+  </div>
+  <div class="stats">
+    <div class="stat"><b id="totalCount">30</b><span>سؤالًا</span></div>
+    <div class="stat"><b>4</b><span>عناوين رئيسية</span></div>
+    <div class="stat"><b>∞</b><span>فرص للتعلم</span></div>
+  </div>
+  <p class="small">نصيحة: حاول الإجابة دون الرجوع إلى الدرس، حتى يكون التقرير معبّرًا عن مستواك الحقيقي.</p>
+  <button onclick="startQuiz()">ابدأ المراجعة</button>
+</section>
+
+<section class="panel" id="quizScreen">
+  <div class="row"><strong>اختبار المراجعة</strong><span class="small" id="counter">السؤال 1 من 30</span></div>
+  <div class="progress"><div id="progressBar"></div></div>
+  <div class="qmeta"><span class="topic" id="topicLabel"></span><span id="typeLabel"></span></div>
+  <div class="question" id="questionText"></div>
+  <div id="answerArea"></div>
+  <div class="feedback" id="feedback"></div>
+  <div class="actions">
+    <button class="secondary" id="prevBtn" onclick="previousQuestion()">السابق</button>
+    <button id="checkBtn" onclick="checkAnswer()">تحقق من الإجابة</button>
+    <button id="nextBtn" onclick="nextQuestion()" style="display:none">السؤال التالي ←</button>
+  </div>
+</section>
+
+<section class="panel" id="resultScreen">
+  <div class="resultHero">
+    <div class="small">اكتملت المراجعة</div>
+    <div class="score" id="finalScore">0%</div>
+    <h2 id="resultTitle">نتيجتك</h2>
+    <p id="resultSubtitle" class="small"></p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b id="correctNum">0</b><span>إجابات صحيحة</span></div>
+    <div class="stat"><b id="wrongNum">0</b><span>إجابات تحتاج تصحيحًا</span></div>
+    <div class="stat"><b id="answeredNum">30</b><span>مجموع الأسئلة</span></div>
+  </div>
+  <h2 style="margin-top:22px">تقرير مستواك حسب عناوين الدرس</h2>
+  <p class="small">التصنيف مبني على إجاباتك في الأسئلة المرتبطة بكل عنوان.</p>
+  <div class="reportGrid" id="reports"></div>
+  <div class="panel" style="box-shadow:none;margin-top:16px">
+    <h2>📌 ما الذي يجب إعادة حفظه؟</h2>
+    <p class="small">العناوين التي كانت نسبة إتقانها أقل من 60%، أو التي تكررت فيها الأخطاء.</p>
+    <ul class="list" id="memorizeList"></ul>
+  </div>
+  <div class="panel" style="box-shadow:none">
+    <h2>🔁 ما الذي تحتاج إلى إعادة مراجعته؟</h2>
+    <p class="small">العناوين التي تحتاج إلى تثبيت وفهم إضافي.</p>
+    <ul class="list" id="reviewList"></ul>
+  </div>
+  <div class="note" id="advice"></div>
+  <div class="actions">
+    <button onclick="restartQuiz()">إعادة الاختبار من البداية</button>
+    <button class="secondary" onclick="window.print()">طباعة التقرير</button>
+  </div>
+</section>
+<footer>تم إعداد الأسئلة اعتمادًا على محتوى الملف المرفق: «الإيمان باليوم الآخر».</footer>
+</main>
+<script>
+const topics = {
+ meaning:"معنى اليوم الآخر",
+ scenes:"مشاهد يوم القيامة",
+ evidence:"الأدلة الشرعية",
+ stages:"من مراحل اليوم الآخر"
+};
+const questions = [
+{t:"meaning",type:"اختيار من متعدد",q:"ما رتبة الإيمان باليوم الآخر بين أركان الإيمان كما ورد في الدرس؟",opts:["الركن الثالث","الركن الرابع","الركن الخامس","الركن السادس"],a:2,why:"الإيمان باليوم الآخر هو الركن الخامس من أركان الإيمان."},
+{t:"meaning",type:"صح أو خطأ",q:"الإيمان باليوم الآخر هو الإيمان الجازم بأن هناك حياة أخرى بعد الحياة الدنيا.",opts:["صح","خطأ"],a:0,why:"هذا هو المعنى الأساسي لتعريف الإيمان باليوم الآخر في الدرس."},
+{t:"meaning",type:"اختيار من متعدد",q:"ماذا يحدث للناس بعد موتهم حسب التعريف الوارد في الدرس؟",opts:["ينتهي أمرهم دون بعث","يحييهم الله ويحشرهم إليه جميعًا","يبقون في الدنيا","يعودون إلى الحياة الدنيا"],a:1,why:"ورد في الدرس أن الله تعالى يحيي الناس بعد موتهم ويحشرهم إليه جميعًا."},
+{t:"meaning",type:"إكمال",q:"يجازي الله تعالى الناس يوم القيامة على ________.",answer:["أعمالهم","اعمالهم"],why:"التعريف يذكر أن الله تعالى يجازي الناس على أعمالهم."},
+{t:"meaning",type:"صح أو خطأ",q:"يذكر الدرس أن مصير الناس يكون إما إلى الجنة وإما إلى النار.",opts:["صح","خطأ"],a:0,why:"هذا جزء صريح من تعريف الإيمان باليوم الآخر."},
+{t:"meaning",type:"اختيار من متعدد",q:"أي عبارة تلخص الإيمان باليوم الآخر بدقة وفق الدرس؟",opts:["الإيمان بوقوع أحداث في الدنيا فقط","الإيمان بحياة أخرى بعد الدنيا وبالبعث والحشر والجزاء","الإيمان بالموت دون بعث","الإيمان بالحساب دون الجنة والنار"],a:1,why:"التعريف يجمع الحياة بعد الدنيا وإحياء الناس وحشرهم ومجازاتهم."},
+{t:"meaning",type:"صح أو خطأ",q:"الإيمان باليوم الآخر هو الركن السادس من أركان الإيمان حسب الدرس.",opts:["صح","خطأ"],a:1,why:"الصحيح أنه الركن الخامس، وليس السادس."},
+
+{t:"scenes",type:"اختيار من متعدد",q:"أي مشهد من المشاهد التالية ورد ضمن مشاهد يوم القيامة؟",opts:["انشقاق السماء","تعاقب الفصول","نزول المطر","جريان الأنهار"],a:0,why:"انشقاق السماء من المشاهد المذكورة في الدرس."},
+{t:"scenes",type:"اختيار من متعدد",q:"ماذا يحدث للنجوم في مشاهد يوم القيامة المذكورة؟",opts:["تزداد لمعانًا","تتناثر وتتبَعثر","تقترب من الأرض","تختفي تدريجيًا فقط"],a:1,why:"ورد في الدرس: تناثر النجوم وتبعثرها."},
+{t:"scenes",type:"صح أو خطأ",q:"تصادم الكواكب وزلزلة الأرض من مشاهد يوم القيامة المذكورة في الدرس.",opts:["صح","خطأ"],a:0,why:"كلا المشهدين وردا ضمن قائمة مشاهد يوم القيامة."},
+{t:"scenes",type:"اختيار من متعدد",q:"أي مجموعة تتضمن مشاهد وردت كلها في الدرس؟",opts:["انشقاق السماء، تناثر النجوم، تصادم الكواكب","نزول المطر، تعاقب الليل، نمو النبات","جريان الأنهار، هبوب الرياح، طلوع الشمس","تبدل الفصول، نزول الثلج، ظهور القمر"],a:0,why:"هذه المشاهد الثلاثة وردت في النص: انشقاق السماء، تناثر النجوم، وتصادم الكواكب."},
+{t:"scenes",type:"صح أو خطأ",q:"يذكر الدرس أن مشاهد يوم القيامة إيذان بنهاية الدنيا وبداية الآخرة.",opts:["صح","خطأ"],a:0,why:"هذا هو التقديم الذي أورده الدرس قبل تعداد المشاهد."},
+{t:"scenes",type:"اختيار من متعدد",q:"أي مما يلي لم يرد في قائمة مشاهد يوم القيامة في الدرس؟",opts:["انشقاق السماء","زلزلة الأرض","تناثر النجوم","طلوع الشمس من مغربها"],a:3,why:"القائمة الواردة في الدرس تشمل انشقاق السماء وتناثر النجوم وتصادم الكواكب وزلزلة الأرض؛ أما الخيار المذكور فلم يرد في هذه القائمة."},
+
+{t:"evidence",type:"اختيار من متعدد",q:"في أي سورة وردت الآيات التي استشهد بها الدرس: «إن يوم الفصل كان ميقاتا»؟",opts:["سورة النبأ","سورة الفاتحة","سورة الإخلاص","سورة الناس"],a:0,why:"الآيات المذكورة في الدرس من سورة النبأ."},
+{t:"evidence",type:"إكمال",q:"قال الله تعالى: «إن يوم الفصل كان ________».",answer:["ميقاتا","ميقاتًا"],why:"اللفظ الوارد في الآية هو «ميقاتا»."},
+{t:"evidence",type:"اختيار من متعدد",q:"ما الحدث المذكور في الآية بعد «يوم ينفخ في الصور»؟",opts:["فتحت السماء","فتتنفخون أفواجًا","وسيرت الجبال","زلزلت الأرض"],a:1,why:"تتابع الآية: «يوم ينفخ في الصور فتأتون أفواجًا»."},
+{t:"evidence",type:"صح أو خطأ",q:"تذكر الآيات المستشهد بها في الدرس أن السماء فُتحت فكانت أبوابًا.",opts:["صح","خطأ"],a:0,why:"ورد في الآيات: «وفتحت السماء فكانت أبوابا»."},
+{t:"evidence",type:"اختيار من متعدد",q:"بماذا وصف الله الجبال في نهاية الآيات المستشهد بها؟",opts:["فكانت كالعهن","فكانت سرابا","فكانت أبوابا","فكانت أوتادا"],a:1,why:"ورد في ختام الآيات: «وسيرت الجبال فكانت سرابا»."},
+{t:"evidence",type:"اختيار من متعدد",q:"من الصحابي الذي روى الحديث المذكور في الدرس؟",opts:["أبو هريرة رضي الله عنه","عبد الله بن عمر رضي الله عنهما","أنس بن مالك رضي الله عنه","عمر بن الخطاب رضي الله عنه"],a:0,why:"الحديث مروي عن أبي هريرة رضي الله عنه."},
+{t:"evidence",type:"اختيار من متعدد",q:"ما السلوك الذي أرشد إليه الحديث تجاه الضيف؟",opts:["إكرامه","تجاهله","تأخير حقه","عدم استقباله"],a:0,why:"قال رسول الله ﷺ: «من كان يؤمن بالله واليوم الآخر فليكرم ضيفه»."},
+{t:"evidence",type:"اختيار من متعدد",q:"ماذا يوجه الحديث المؤمن إلى فعله تجاه جاره؟",opts:["ألا يؤذيه","أن يتجاهله","أن يخاصمه","أن يبتعد عنه دائمًا"],a:0,why:"ورد في الحديث: «ومن كان يؤمن بالله واليوم الآخر فلا يؤذ جاره»."},
+{t:"evidence",type:"صح أو خطأ",q:"يوجه الحديث إلى قول الخير أو الصمت.",opts:["صح","خطأ"],a:0,why:"ورد في الحديث: «فليقل خيرًا أو ليصمت»."},
+{t:"evidence",type:"اختيار من متعدد",q:"من اللذين رويا الحديث كما ورد في الدرس؟",opts:["البخاري ومسلم","أبو داود والترمذي","النسائي وابن ماجه","مالك وأحمد"],a:0,why:"ورد في نهاية الحديث: رواه البخاري ومسلم."},
+
+{t:"stages",type:"اختيار من متعدد",q:"بماذا تبدأ مراحل اليوم الآخر حسب الدرس؟",opts:["بالنفخ في الصور","بالحساب","بالميزان","بالصراط"],a:0,why:"ذكر الدرس أن المراحل تبدأ بالنفخ في الصور."},
+{t:"stages",type:"اختيار من متعدد",q:"ما المقصود بالدنيا في قائمة مراحل اليوم الآخر؟",opts:["دار عمل واختبار","أول منازل الآخرة","جمع الخلائق","دار الجزاء النهائي"],a:0,why:"الدنيا موصوفة في الدرس بأنها دار عمل واختبار."},
+{t:"stages",type:"اختيار من متعدد",q:"ما أول منازل الآخرة؟",opts:["الحشر","القبر","الحساب","الميزان"],a:1,why:"القبر هو أول منازل الآخرة حسب الدرس."},
+{t:"stages",type:"اختيار من متعدد",q:"ما المقصود بالبعث؟",opts:["إحياء الموتى ونشرهم","جمع الخلائق في أرض المحشر","حساب الناس على أعمالهم","وزن أعمال الناس"],a:0,why:"البعث هو إحياء الموتى ونشرهم."},
+{t:"stages",type:"اختيار من متعدد",q:"ما المقصود بالحشر؟",opts:["إحياء الموتى","جمع الخلائق في أرض المحشر","وزن الأعمال","المرور على الصراط"],a:1,why:"الحشر هو جمع الخلائق في أرض المحشر."},
+{t:"stages",type:"اختيار من متعدد",q:"أي مجموعة تمثل الشهود المذكورين في الدرس؟",opts:["الأنبياء والملائكة والأرض والجوارح والصحائف","النجوم والكواكب والجبال والبحار","المؤمنون والأطفال والطيور والجبال","الملائكة والنجوم والكواكب والصراط"],a:0,why:"هذه هي قائمة الشهود الخمسة كما وردت في الدرس."},
+{t:"stages",type:"اختيار من متعدد",q:"ما المقصود بالحساب؟",opts:["حساب الناس على أعمالهم","جمع الخلائق","وزن الأعمال","إحياء الموتى"],a:0,why:"الحساب هو حساب الناس على أعمالهم."},
+{t:"stages",type:"اختيار من متعدد",q:"ما وظيفة الميزان يوم القيامة؟",opts:["به توزن أعمال الناس","به يجمع الناس","به يحيى الموتى","به يمر الناس على النار"],a:0,why:"الميزان هو ما توزن به أعمال الناس."},
+{t:"stages",type:"اختيار من متعدد",q:"كيف وصف الدرس الصراط؟",opts:["جسر ممدود على النار يمر عليه الناس","مكان جمع الخلائق","دار المؤمنين","موضع وزن الأعمال"],a:0,why:"هذا هو وصف الصراط الوارد في الدرس."},
+{t:"stages",type:"اختيار من متعدد",q:"ما مصير المؤمنين ودارهم حسب الدرس؟",opts:["الجنة","النار","القبر","أرض المحشر"],a:0,why:"الجنة هي مصير المؤمنين ودارهم."},
+{t:"stages",type:"اختيار من متعدد",q:"ما مصير الكافرين ودارهم حسب الدرس؟",opts:["الجنة","النار","الدنيا","الميزان"],a:1,why:"النار هي مصير الكافرين ودارهم."},
+{t:"stages",type:"صح أو خطأ",q:"الصراط يأتي قبل الميزان في ترتيب المراحل المعروض في الدرس.",opts:["صح","خطأ"],a:1,why:"في تسلسل القائمة، الميزان يسبق الصراط."},
+{t:"stages",type:"اختيار من متعدد",q:"أي ترتيب يطابق بداية المراحل كما وردت في الدرس؟",opts:["الدنيا، القبر، البعث، الحشر","القبر، الدنيا، الحشر، البعث","الدنيا، البعث، القبر، الحشر","البعث، الدنيا، القبر، الحشر"],a:0,why:"بداية الترتيب في الدرس: الدنيا ثم القبر ثم البعث ثم الحشر."}
+];
+
+let order=[], index=0, answers={}, checked={};
+document.getElementById("totalCount").textContent=questions.length;
+function shuffle(a){let x=[...a];for(let i=x.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]]}return x}
+function startQuiz(){order=shuffle(questions.map((_,i)=>i));index=0;answers={};checked={};document.getElementById("startScreen").style.display="none";document.getElementById("resultScreen").style.display="none";document.getElementById("quizScreen").style.display="block";render()}
+function render(){
+ let q=questions[order[index]], n=index+1;
+ document.getElementById("counter").textContent=`السؤال ${n} من ${order.length}`;
+ document.getElementById("progressBar").style.width=`${(n-1)/order.length*100}%`;
+ document.getElementById("topicLabel").textContent=topics[q.t];
+ document.getElementById("typeLabel").textContent=q.type;
+ document.getElementById("questionText").textContent=q.q;
+ const area=document.getElementById("answerArea");area.innerHTML="";
+ if(q.opts){
+   const wrap=document.createElement("div");wrap.className="options";
+   q.opts.forEach((o,i)=>{
+    const b=document.createElement("button");b.className="option";b.type="button";
+    const letter=document.createElement("span");letter.className="letter";letter.textContent=q.opts.length===2?(i===0?"✓":"✕"):String.fromCharCode(65+i);
+    const txt=document.createElement("span");txt.textContent=o;b.append(letter,txt);
+    b.onclick=()=>{if(checked[order[index]])return;answers[order[index]]=i;renderOptionsSelection()};
+    b.dataset.i=i;wrap.appendChild(b);
+   });area.appendChild(wrap);
+ }else{
+   const inp=document.createElement("input");inp.type="text";inp.placeholder="اكتب إجابتك هنا...";inp.value=answers[order[index]]||"";inp.id="textAnswer";inp.autocomplete="off";inp.oninput=()=>answers[order[index]]=inp.value;area.appendChild(inp);
+ }
+ document.getElementById("feedback").className="feedback";document.getElementById("feedback").textContent="";
+ const done=!!checked[order[index]];
+ document.getElementById("checkBtn").style.display=done?"none":"inline-block";
+ document.getElementById("nextBtn").style.display=done?"inline-block":"none";
+ document.getElementById("prevBtn").disabled=index===0;
+ if(done)showFeedback(q,answers[order[index]]);
+ renderOptionsSelection();
+}
+function renderOptionsSelection(){
+ const q=questions[order[index]], chosen=answers[order[index]];
+ document.querySelectorAll(".option").forEach(b=>{b.classList.toggle("selected",Number(b.dataset.i)===chosen);if(checked[order[index]]){b.disabled=true;b.classList.toggle("correct",Number(b.dataset.i)===q.a);b.classList.toggle("wrong",Number(b.dataset.i)===chosen && !isCorrect(q,chosen));}});
+}
+function isCorrect(q,v){
+ if(q.opts)return v===q.a;
+ return (q.answer||[]).some(x=>normalize(x)===normalize(v||""));
+}
+function normalize(s){return String(s||"").trim().toLowerCase().replace(/[ًٌٍَُِّْـ]/g,"").replace(/[أإآ]/g,"ا").replace(/ى/g,"ي").replace(/[.,،؛]/g,"").replace(/\s+/g," ")}
+function checkAnswer(){
+ const id=order[index],q=questions[id];let val=answers[id];
+ if(q.opts && val===undefined){alert("اختر إجابة أولًا.");return}
+ if(!q.opts && !String(val||"").trim()){alert("اكتب إجابتك أولًا.");return}
+ checked[id]=true;showFeedback(q,val);renderOptionsSelection();
+ document.getElementById("checkBtn").style.display="none";document.getElementById("nextBtn").style.display="inline-block";
+ document.getElementById("progressBar").style.width=`${(index+1)/order.length*100}%`;
+}
+function showFeedback(q,val){
+ let ok=isCorrect(q,val),f=document.getElementById("feedback");
+ f.className="feedback "+(ok?"good":"bad");
+ let right=q.opts?q.opts[q.a]:q.answer[0];
+ f.textContent=(ok?"✓ إجابة صحيحة. ":"✗ ليست الإجابة الصحيحة. الإجابة الصحيحة: "+right+". ")+q.why;
+}
+function nextQuestion(){if(index<order.length-1){index++;render()}else finish()}
+function previousQuestion(){if(index>0){index--;render()}}
+function finish(){
+ document.getElementById("quizScreen").style.display="none";document.getElementById("resultScreen").style.display="block";
+ let correct=0,stats={};Object.keys(topics).forEach(k=>stats[k]={c:0,n:0});
+ questions.forEach((q,i)=>{stats[q.t].n++;if(checked[i]&&isCorrect(q,answers[i])){correct++;stats[q.t].c++}});
+ const pct=Math.round(correct/questions.length*100);
+ document.getElementById("finalScore").textContent=pct+"%";
+ document.getElementById("correctNum").textContent=correct;
+ document.getElementById("wrongNum").textContent=questions.length-correct;
+ document.getElementById("answeredNum").textContent=questions.length;
+ document.getElementById("resultTitle").textContent=pct>=85?"ممتاز! أداء رائع 🌟":pct>=65?"جيد، واصل التقدم 👍":"لا بأس، المراجعة ستقوّيك 💪";
+ document.getElementById("resultSubtitle").textContent=`أجبت إجابة صحيحة عن ${correct} سؤالًا من أصل ${questions.length}.`;
+ const reports=document.getElementById("reports");reports.innerHTML="";
+ const memorize=[],review=[];
+ Object.entries(stats).forEach(([k,s])=>{
+  const p=Math.round(s.c/s.n*100), weak=p<60;
+  const div=document.createElement("div");div.className="report "+(weak?"weak":"strong");
+  div.innerHTML=`<h3><span>${topics[k]}</span><span class="badge">${p}%</span></h3><div class="meter"><div style="width:${p}%"></div></div><div class="small">${s.c} صحيحة من ${s.n} أسئلة</div><div style="margin-top:8px;font-size:13px">${weak?"يحتاج إلى إعادة حفظ ومراجعة مركزة":p<85?"مستوى متوسط؛ يحتاج إلى تثبيت":"متمكن من هذا العنوان"}</div>`;
+  reports.appendChild(div);
+  if(p<60)memorize.push(`${topics[k]} — نسبة الإتقان ${p}% (${s.c}/${s.n})`);
+  else if(p<85)review.push(`${topics[k]} — نسبة الإتقان ${p}% (${s.c}/${s.n})`);
+ });
+ document.getElementById("memorizeList").innerHTML=memorize.length?memorize.map(x=>`<li>${x}</li>`).join(""):"<li>لا توجد عناوين في مستوى إعادة الحفظ العاجلة. أحسنت!</li>";
+ document.getElementById("reviewList").innerHTML=review.length?review.map(x=>`<li>${x}</li>`).join(""):"<li>لا توجد عناوين متوسطة حاليًا؛ حافظ على المراجعة الدورية.</li>";
+ document.getElementById("advice").textContent=pct>=85?"نصيحتك: حافظ على مستواك بمراجعة سريعة للعناوين الأربعة، ثم أعد الاختبار لاحقًا للتأكد من ثبات الحفظ.":"ابدأ بالعناوين الموجودة في قائمة «إعادة الحفظ»، ثم راجع العناوين المتوسطة. أعد الاختبار بعد المراجعة لترى تحسن مستواك.";
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function restartQuiz(){document.getElementById("resultScreen").style.display="none";document.getElementById("startScreen").style.display="block";document.getElementById("quizScreen").style.display="none";window.scrollTo({top:0,behavior:"smooth"})}
+</script>
+</body>
+</html>
